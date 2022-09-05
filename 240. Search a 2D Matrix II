@@ -13,7 +13,7 @@ class Solution {
 				return true;
 			else if(arr[row][col]>find)
 				col--;
-			else
+			else 
 				row++;
 			
 		}
