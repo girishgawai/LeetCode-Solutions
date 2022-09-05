@@ -1,0 +1,23 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        return findTheElement(matrix,target);
+    }
+    
+    private static boolean findTheElement(int[][] arr, int find) {
+		// TODO Auto-generated method stub
+		int row=0;
+		int col=arr[row].length-1;
+		while(row<arr.length && col>=0)
+		{
+			if(arr[row][col]==find)
+				return true;
+			else if(arr[row][col]>find)
+				col--;
+			else
+				row++;
+			
+		}
+		
+		return false;
+	}
+}
