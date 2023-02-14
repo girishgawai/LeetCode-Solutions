@@ -1,62 +1,41 @@
-package leetcode.coomplex.code;
+package recurssion;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Combination_Sum {
+	
+	    static List<List<Integer>> sol = new ArrayList<>();
+	    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+	        sol = new ArrayList<>();
+	        List<Integer> list = new ArrayList<>();
+			combination(candidates,0,target,"",list);
+			return sol;
+	    }
 
+	    private static void combination(int[] candidates, int curr, int target, String ans, List<Integer> list) {
+			// TODO Auto-generated method stub
+			if(target==0)
+			{
+				sol.add(new ArrayList<>(list));
+//				System.out.println(ans);
+				return;
+			}
+
+			for (int i = curr; i < candidates.length; i++) {
+				if(target>=candidates[i])
+				{
+					list.add(candidates[i]);
+					combination(candidates, i, target-candidates[i], ans+candidates[i], list);
+					list.remove(list.size()-1);
+				}
+			}
+		}
+	    
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub			// source is unlimited --> the number of candidates can be pick 'n' number of times
+		// TODO Auto-generated method stub
 		int[] candidates = {2,3,6,7};
 		int target = 7;
-		
-//		formPermutations(candidates,target, 0, "");
-		
-		List<Integer> list = new ArrayList<>();
-		List<List<Integer>> ans = new ArrayList<>();
-		formCombinations(candidates,target, 0, "", 0, list, ans);    // last zero form performing combinations of unlimited source
-		
-		System.out.println(ans);
-	}
-
-	// it will form all the combinations without having repeated/Permutations
-	private static void formCombinations(int[] candidates, int target, int sum, String ans, int last, List<Integer> list, List<List<Integer>> ansS) {
-		// TODO Auto-generated method stub
-		if(sum==target)
-		{
-//			System.out.println(ans);
-//			System.out.println(list);
-			ansS.add(new ArrayList<>(list));// kyu ki backtracking me hm original list se hi uda rhe hai items toh final ansS list v udega
-			return;											// isliye ek nyi arrayList me se store kr rhe ansS list me so addrs alg rhega
-		}														// har bar nhi ArrayList me list dalkr ansS me ayega toh data erase nhi hoga
-		
-		if(sum>target)
-			return;
-		
-		for (int i = last; i < candidates.length; i++) {	// source unlimited hai isliye next call v ussi call se jayega jha se phla wala gya tha
-			list.add(candidates[i]);
-			formCombinations(candidates, target, sum+candidates[i], ans+candidates[i], i, list, ansS);			// combinations bnane ke liye
-			list.remove(list.size()-1);
-		}
-		
-	}
-	
-	// it will form all the possible permutations
-	private static void formPermutations(int[] candidates, int target, int sum, String ans) {
-		// TODO Auto-generated method stub
-		if(sum==target)
-		{
-			System.out.println(ans);
-			return;
-		}
-		
-		if(sum>target)
-			return;
-		
-		for (int i = 0; i < candidates.length; i++) {
-			formPermutations(candidates, target, sum+candidates[i], ans+candidates[i]);
-		}
-		
+		combinationSum(candidates,target);
 	}
 
 }
